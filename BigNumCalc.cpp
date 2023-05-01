@@ -78,13 +78,27 @@ std::list<int> sub(std::list<int> num1, std::list<int> num2)
     return result;
 }
 
-std::list<int> mul(std::list<int> num1, std::list<int> num2)
-{
-    std::list<int> sum;
-
-    for (int i = 0; i < num2.front(); i++)
-    {
-        sum = add(num1, sum);
+std::list<int> mul(std::list<int> num1, std::list<int> num2) {
+    std::list<int> result(num1.size() + 1, 0);
+    int carry = 0;
+    int i = 0;
+    for (std::list<int>::iterator it1 = num1.end(); it1 != num1.begin(); ) {
+        --it1;
+        int prod = carry + *it1 * num2.front();
+        std::list<int>::iterator it = result.end();
+        for (int j = 0; j <= i; ++j) {
+            --it;
+        }
+        *it += prod;
+        carry = *it / 10;
+        *it %= 10;
+        ++i;
     }
-    return sum;
+    if (carry) {
+        result.front() += carry;
+    }
+    while (!result.empty() && result.front() == 0) {
+        result.pop_front();
+    }
+    return result.empty() ? std::list<int>{0} : result;
 }
