@@ -1,6 +1,7 @@
 #ifndef BIGNUMCALC_H
 #define BIGNUMCALC_H
 
+#include <iostream>
 #include <list>
 
 class BigNumCalc

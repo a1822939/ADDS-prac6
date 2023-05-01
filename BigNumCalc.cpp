@@ -1,5 +1,6 @@
 #include "BigNumCalc.h"
-#include <string>
+#include <iostream>
+#include <list>
 
 BigNumCalc::BigNumCalc()
 {
