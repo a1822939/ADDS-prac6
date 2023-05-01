@@ -9,6 +9,7 @@ private:
 
 public:
     Node();
+    Node(int data);
     Node(int data, Node *link);
     int getData();
     Node *getLink();
