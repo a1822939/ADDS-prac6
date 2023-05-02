@@ -21,7 +21,7 @@ std::list<int> BigNumCalc::buildBigNum(std::string numString)
 
     return numList;
 }
-std::list<int> add(std::list<int> num1, std::list<int> num2)
+std::list<int> BigNumCalc::add(std::list<int> num1, std::list<int> num2)
 {
     std::list<int> result;
     int carry = 0;
@@ -44,7 +44,7 @@ std::list<int> add(std::list<int> num1, std::list<int> num2)
     return result;
 }
 
-std::list<int> sub(std::list<int> num1, std::list<int> num2)
+std::list<int> BigNumCalc::sub(std::list<int> num1, std::list<int> num2)
 {
     std::list<int> result;
     int borrow = 0;
@@ -79,7 +79,7 @@ std::list<int> sub(std::list<int> num1, std::list<int> num2)
     return result;
 }
 
-std::list<int> mul(std::list<int> num1, std::list<int> num2) {
+std::list<int> BigNumCalc::mul(std::list<int> num1, std::list<int> num2) {
     int mul = num2.front();
     std::list<int> total;
     std::list<int> powTen;
