@@ -143,7 +143,7 @@ int LinkedList::listSize()
     int length = 0;
     Node *currentNode = this->head;
 
-    while (currentNode != nullptr)
+    while (currentNode->getLink() != nullptr)
     {
         currentNode = currentNode->getLink();
         length++;
