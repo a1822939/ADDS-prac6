@@ -81,23 +81,32 @@ std::list<int> BigNumCalc::sub(std::list<int> num1, std::list<int> num2)
 
 std::list<int> BigNumCalc::mul(std::list<int> num1, std::list<int> num2)
 {
-    int mul = num2.front();
+    // int mul = num2.front();
+    // std::list<int> total;
+    // std::list<int> powTen;
+    // powTen.push_front(0);
+
+    // while (!num1.empty())
+    // {
+    //     int amount = 0;
+    //     if (!num1.empty())
+    //     {
+    //         amount += (num1.back() * mul);
+    //         num1.pop_back();
+    //     }
+
+    //     total.push_front(amount % 10);
+    //     powTen.push_front(amount / 10);
+    // }
+
+    // return add(total, powTen);
+
     std::list<int> total;
-    std::list<int> powTen;
-    powTen.push_front(0);
 
-    while (!num1.empty())
+    for (int i = 0; i < num2.front(); i++)
     {
-        int amount = 0;
-        if (!num1.empty())
-        {
-            amount += (num1.back() * mul);
-            num1.pop_back();
-        }
-
-        total.push_front(amount % 10);
-        powTen.push_front(amount / 10);
+        total = add(total,total);
     }
-
-    return add(total, powTen);
+    
+    return total;
 }
