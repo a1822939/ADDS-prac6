@@ -38,6 +38,13 @@ void LinkedList::insertPosition(int pos, int newNum)
         head = newNode;
         return;
     }
+    else if (pos >= listSize())
+    {
+        Node *prevNode = getNode(listSize());
+        Node *newNode = new Node(newNum, prevNode->getLink());
+        prevNode->setLink(newNode);
+        return;
+    }
     else
     {
         Node *prevNode = getNode(pos - 1);

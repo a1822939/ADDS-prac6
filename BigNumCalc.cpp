@@ -14,10 +14,10 @@ std::list<int> BigNumCalc::buildBigNum(std::string numString)
     std::list<int> numList;
 
     for (unsigned int i = 0; i < numString.size(); i++)
-    {
-        int charInt = numString.at(i) - 48;
-        numList.push_back(charInt);
-    }
+        {
+            int charInt = numString.at(i) - 48;
+            numList.push_back(charInt);
+        }
 
     return numList;
 }
@@ -79,21 +79,24 @@ std::list<int> BigNumCalc::sub(std::list<int> num1, std::list<int> num2)
     return result;
 }
 
-std::list<int> BigNumCalc::mul(std::list<int> num1, std::list<int> num2) {
+std::list<int> BigNumCalc::mul(std::list<int> num1, std::list<int> num2)
+{
     int mul = num2.front();
     std::list<int> total;
     std::list<int> powTen;
     powTen.push_front(0);
-    
-    while(!num1.empty()){
+
+    while (!num1.empty())
+    {
         int amount = 0;
-        if(!num1.empty()){
+        if (!num1.empty())
+        {
             amount += (num1.back() * mul);
             num1.pop_back();
         }
 
-        total.push_front(amount%10);
-        powTen.push_front(amount/10);
+        total.push_front(amount % 10);
+        powTen.push_front(amount / 10);
     }
 
     return add(total, powTen);
