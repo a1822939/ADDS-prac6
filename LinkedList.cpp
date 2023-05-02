@@ -128,9 +128,9 @@ void LinkedList::printList()
 Node *LinkedList::getNode(int pos)
 {
     int currentPos = 1;
-    Node *currentNode = head;
+    Node *currentNode = this->head;
 
-    while (currentNode != nullptr && currentPos < pos)
+    while (currentNode->getLink() != nullptr && currentPos < pos)
     {
         currentNode = currentNode->getLink();
         currentPos++;
@@ -141,7 +141,7 @@ Node *LinkedList::getNode(int pos)
 int LinkedList::listSize()
 {
     int length = 0;
-    Node *currentNode = head;
+    Node *currentNode = this->head;
 
     while (currentNode != nullptr)
     {
@@ -154,7 +154,6 @@ int LinkedList::listSize()
 
 bool LinkedList::validPos(int pos)
 {
-
     if (pos <= 0 || pos > listSize())
     {
         return false;
