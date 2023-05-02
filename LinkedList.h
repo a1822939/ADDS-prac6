@@ -17,6 +17,10 @@ public:
     int get(int pos);
     int search(int target);
     void printList();
+
+    Node* getNode(int pos);
+    int listSize();
+    bool validPos(int pos);
 };
 
 

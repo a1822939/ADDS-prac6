@@ -1,25 +1,32 @@
 #include "LinkedList.h"
 #include <iostream>
+#include <limits>
 
-LinkedList::LinkedList() : head(nullptr) {}
+LinkedList::LinkedList()
+{
+    this->head = nullptr;
+}
 
 LinkedList::LinkedList(int *array, int len)
 {
-    this->head = nullptr;
-    for (int i = 0; i < len; i++)
+    Node *tailNode = new Node(array[len - 1], nullptr);
+    Node *prevNode = tailNode;
+
+    for (int i = len - 2; i > 0; i--)
     {
-        insertPosition(i + 1, array[i]);
+        Node *newNode = new Node(array[i], prevNode);
+        prevNode = newNode;
     }
+
+    Node *headNode = new Node(array[0], prevNode);
+    head = headNode;
 }
 
 LinkedList::~LinkedList()
 {
-    Node *current = head;
-    while (current != nullptr)
+    while (head != nullptr)
     {
-        Node *next = current-> getLink();
-        delete current;
-        current = next;
+        deletePosition(1);
     }
 }
 
@@ -27,109 +34,123 @@ void LinkedList::insertPosition(int pos, int newNum)
 {
     if (pos <= 1)
     {
-        head = new Node(newNum, head);
+        Node *newNode = new Node(newNum, head);
+        head = newNode;
         return;
     }
-
-    Node *current = head;
-    for (int i = 1; i < pos - 1 && current != nullptr; i++)
+    else
     {
-        current = current->getLink();
-    }
-
-    if (current == nullptr)
-    {
+        Node *prevNode = getNode(pos - 1);
+        Node *newNode = new Node(newNum, prevNode->getLink());
+        prevNode->setLink(newNode);
         return;
     }
-
-    current->setLink(new Node(newNum, current->getLink()));
 }
 
 bool LinkedList::deletePosition(int pos)
 {
-    if (pos < 1 || head == nullptr)
+    if (!validPos(pos))
     {
         return false;
     }
-
     if (pos == 1)
     {
         Node *temp = head;
-        head = head->  getLink();
+        head = head->getLink();
         delete temp;
         return true;
     }
 
-    Node *current = head;
-    for (int i = 1; i < pos - 1 && current != nullptr; i++)
-    {
-        current = current->getLink();
-    }
-
-    if (current == nullptr || current->getLink() == nullptr)
-    {
-        return false;
-    }
-
-    Node *temp = current-> getLink();
-    current->setLink(temp-> getLink());
-    delete temp;
-
+    Node *targetNode = getNode(pos);
+    Node *prevNode = getNode(pos - 1);
+    prevNode->setLink(targetNode->getLink());
+    delete targetNode;
     return true;
 }
 
 int LinkedList::get(int pos)
 {
-    if (pos < 1 || head == nullptr)
+    if (!validPos(pos))
     {
         return std::numeric_limits<int>::max();
     }
 
-    Node *current = head;
-    for (int i = 1; i < pos && current != nullptr; i++)
-    {
-        current = current->getLink();
-    }
-
-    if (current == nullptr)
-    {
-        return std::numeric_limits<int>::max();
-    }
-
-    return current->getData();
+    return getNode(pos)->getData();
 }
 
 int LinkedList::search(int target)
 {
-    Node *current = head;
-    int index = 1;
+    int currentPos = 0;
+    Node *currentNode = head;
 
-    while (current != nullptr && current->getData() != target)
+    while (currentNode != nullptr && currentNode->getData() != target)
     {
-        index++;
-        current = current->getLink();
+        currentNode = currentNode->getLink();
+        currentPos++;
     }
-
-    if (current == nullptr)
+    if (currentNode == nullptr)
     {
         return -1;
     }
-    else
-    {
-        return index;
-    }
+    return currentPos;
 }
 
 void LinkedList::printList()
 {
-    std::cout << '[';
-    for (Node *current = head; current != nullptr; current = current-> getLink())
+    if (listSize() == 0)
     {
-        std::cout << current->getData();
-        if (current->  getLink() != nullptr)
-        {
-            std::cout << ' ';
-        }
+        return;
     }
+
+    Node *currentNode = head;
+    int currentPos = 1;
+    std::cout << '[';
+    while (currentNode != nullptr && currentPos < listSize())
+    {
+        std::cout << currentNode->getData();
+        std::cout << ' ';
+        currentNode = currentNode->getLink();
+        currentPos++;
+    }
+    std::cout << currentNode->getData();
     std::cout << ']';
+}
+
+////////////////////////////////////////////////////
+
+Node *LinkedList::getNode(int pos)
+{
+    int currentPos = 1;
+    Node *currentNode = head;
+
+    while (currentNode != nullptr && currentPos < pos)
+    {
+        currentNode = currentNode->getLink();
+        currentPos++;
+    }
+    return currentNode;
+}
+
+int LinkedList::listSize()
+{
+    int length = 0;
+    Node *currentNode = head;
+
+    while (currentNode != nullptr)
+    {
+        currentNode = currentNode->getLink();
+        length++;
+    }
+
+    return length;
+}
+
+bool LinkedList::validPos(int pos)
+{
+
+    if (pos <= 0 || pos > listSize())
+    {
+        return false;
+    }
+    return true;
 }
