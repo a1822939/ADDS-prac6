@@ -14,10 +14,10 @@ std::list<int> BigNumCalc::buildBigNum(std::string numString)
     std::list<int> numList;
 
     for (unsigned int i = 0; i < numString.size(); i++)
-        {
-            int charInt = numString.at(i) - 48;
-            numList.push_back(charInt);
-        }
+    {
+        int charInt = numString.at(i) - 48;
+        numList.push_back(charInt);
+    }
 
     return numList;
 }
@@ -81,32 +81,22 @@ std::list<int> BigNumCalc::sub(std::list<int> num1, std::list<int> num2)
 
 std::list<int> BigNumCalc::mul(std::list<int> num1, std::list<int> num2)
 {
-    // int mul = num2.front();
-    // std::list<int> total;
-    // std::list<int> powTen;
-    // powTen.push_front(0);
+    std::list<int> result;
+    std::list<int> power;
+    int mul = num2.front();
 
-    // while (!num1.empty())
-    // {
-    //     int amount = 0;
-    //     if (!num1.empty())
-    //     {
-    //         amount += (num1.back() * mul);
-    //         num1.pop_back();
-    //     }
+    power.push_front(0);
 
-    //     total.push_front(amount % 10);
-    //     powTen.push_front(amount / 10);
-    // }
-
-    // return add(total, powTen);
-
-    std::list<int> total;
-
-    for (int i = 0; i < num2.front(); i++)
+    while (!num1.empty())
     {
-        total = add(total,total);
+        int amount = 0;
+        if (!num1.empty())
+        {
+            amount += (num1.back() * mul);
+            num1.pop_back();
+        }
+        result.push_front(amount % 10);
+        power.push_front(amount / 10);
     }
-    
-    return total;
+    return add(result, power);
 }
