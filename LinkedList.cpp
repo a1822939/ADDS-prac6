@@ -140,7 +140,7 @@ Node *LinkedList::getNode(int pos)
 
 int LinkedList::listSize()
 {
-    int length = 0;
+    int length = 1;
     Node *currentNode = this->head;
 
     while (currentNode->getLink() != nullptr)
