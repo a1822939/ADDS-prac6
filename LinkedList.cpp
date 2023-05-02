@@ -82,12 +82,13 @@ int LinkedList::get(int pos)
         return std::numeric_limits<int>::max();
     }
 
+
     return getNode(pos)->getData();
 }
 
 int LinkedList::search(int target)
 {
-    int currentPos = 0;
+    int currentPos = 1;
     Node *currentNode = head;
 
     while (currentNode != nullptr && currentNode->getData() != target)
@@ -154,7 +155,7 @@ int LinkedList::listSize()
 
 bool LinkedList::validPos(int pos)
 {
-    if (pos <= 0 || pos > listSize())
+    if (pos < 1 || pos > listSize())
     {
         return false;
     }
